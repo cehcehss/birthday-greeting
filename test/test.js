@@ -6,18 +6,18 @@ chai.should();
 chai.use(chaiHttp);
 
 describe('Members APIs',()=>{
-    describe("Test POST route /api/birthday-greeting/v2",()=>{
+    describe("Test POST route /api/birthday-greeting/v3",()=>{
         it("It should return two members",(done)=>{
-            const date = "08/08";
+            const date = "12/22";
             chai.request(server)
-                .post("/api/birthday-greeting/v2")
+                .post("/api/birthday-greeting/v3")
                 .send({
                     'today': date
                 })
                 .end((err,response)=>{
                     response.should.have.status(200);
                     response.body.should.be.a('array');
-                    response.body.length.should.be.eq(2);
+                    response.body.length.should.be.eq(1);
                 done();
                 });
         });
