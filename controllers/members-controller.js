@@ -1,4 +1,4 @@
-const db = require('../models');
+const db = require('../models/db-connection');
 const moment = require('moment');
 const Member = db.Member;
 const { QueryTypes } = require('sequelize');
