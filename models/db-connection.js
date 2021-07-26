@@ -1,5 +1,6 @@
 'use strict';
-if(process.env.DB_MySQL){
+
+if(process.env.DB == "mysql"){
   var fs        = require('fs');
   var path      = require('path');
   var Sequelize = require('sequelize');
@@ -35,4 +36,12 @@ if(process.env.DB_MySQL){
   db.Sequelize = Sequelize;
 }
 
+if(process.env.DB == "firestore"){
+  var admin = require('firebase-admin');
+  var serviceAccount = require("../firebase-adminsdk.json");
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
+  db = admin.firestore().collection(process.env.FIRESTORE_COLLECTION); 
+}
 module.exports = db;

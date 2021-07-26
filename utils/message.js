@@ -16,5 +16,12 @@ module.exports = {
         var age = moment.duration(today.diff(birth));
         var years = age.years();
         return years > checkAge;
+    },
+    getFullNameMessage:function(first_name,last_name){
+        var data = {
+            "title":"Happy birthday!",
+            "content":`Happy birthday, dear ${last_name}, ${first_name}!`
+        };
+        return data
     }
 }
