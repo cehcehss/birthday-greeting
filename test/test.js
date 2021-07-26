@@ -6,11 +6,11 @@ chai.should();
 chai.use(chaiHttp);
 
 describe('Members APIs',()=>{
-    describe("Test POST route /api/birthday-greeting/v1",()=>{
+    describe("Test POST route /api/birthday-greeting/v2",()=>{
         it("It should return two members",(done)=>{
             const date = "08/08";
             chai.request(server)
-                .post("/api/birthday-greeting/v1")
+                .post("/api/birthday-greeting/v2")
                 .send({
                     'today': date
                 })
