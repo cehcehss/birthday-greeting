@@ -1,5 +1,4 @@
 'use strict';
-if(process.env.DB_MySQL){
   var fs        = require('fs');
   var path      = require('path');
   var Sequelize = require('sequelize');
@@ -33,6 +32,5 @@ if(process.env.DB_MySQL){
   
   db.sequelize = sequelize;
   db.Sequelize = Sequelize;
-}
 
 module.exports = db;
