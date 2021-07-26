@@ -6,11 +6,14 @@ chai.should();
 chai.use(chaiHttp);
 
 describe('Members APIs',()=>{
-    describe("Test GET route /api/members/:date",()=>{
+    describe("Test POST route /api/birthday-greeting/v1",()=>{
         it("It should return two members",(done)=>{
-            const date = "08-08";
+            const date = "08/08";
             chai.request(server)
-                .get("/api/members/"+date)
+                .post("/api/birthday-greeting/v1")
+                .send({
+                    'today': date
+                })
                 .end((err,response)=>{
                     response.should.have.status(200);
                     response.body.should.be.a('array');

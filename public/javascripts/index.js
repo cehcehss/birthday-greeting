@@ -1,5 +1,7 @@
-function ajaxGetMember(date){
-    axios.get(`/api/members/${date}`)
+function ajaxGetMember(){
+    axios.post(`/api/birthday-greeting/v1`, {
+      today: '08/08'
+    })
   .then(function (response) {
     // handle success
     console.log(response.data);
@@ -25,7 +27,7 @@ function ajaxGetMember(date){
   });
 }
 
-ajaxGetMember('08-08');
+ajaxGetMember();
 
 document.getElementById("submit-btn").addEventListener('click',function(e){
     var date = document.getElementById("date").value;

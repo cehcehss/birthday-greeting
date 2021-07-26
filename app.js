@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var env = require('dotenv').config();
+
 var indexRouter = require('./routes/index');
 var membersRouter = require('./routes/api/members');
 
@@ -19,8 +21,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.use('/', indexRouter);
-app.use('/api/members', membersRouter);
+app.use('/api/birthday-greeting', membersRouter);
 
 
 // catch 404 and forward to error handler

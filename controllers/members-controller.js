@@ -1,12 +1,15 @@
 const db = require('../models');
+const moment = require('moment');
 const Member = db.Member;
 const { QueryTypes } = require('sequelize');
 module.exports = {
     getMemberByBirthday:(req,res)=>{
-        var splitedDate = req.params.date.split('-')
-        var month = splitedDate[0];
-        var day = splitedDate[1]
-
+        const {today} = req.body;
+        var date = moment(today, 'MM/DD');
+    
+        var month = date.format('M');
+        var day   = date.format('D');
+     
         const getMembers = async()=>{
             let result = await db.sequelize.query(`SELECT * FROM members WHERE MONTH(date_of_birth) = '${month}' AND DAY(date_of_birth) = '${day}';`, { type: QueryTypes.SELECT });
             return result;
