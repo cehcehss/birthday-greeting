@@ -2,24 +2,25 @@ const db = require('../models');
 const moment = require('moment');
 const Member = db.Member;
 const { QueryTypes } = require('sequelize');
+const message = require('../utils/message');
 module.exports = {
     getMemberByBirthday:(req,res)=>{
         const {today} = req.body;
         console.log(today);
         var date = moment(today, 'MM/DD');
-        console.log(date);
         var month = date.format('M');
         var day   = date.format('D');
      
         const getMembers = async()=>{
             let result = await db.sequelize.query(`SELECT * FROM members WHERE MONTH(date_of_birth) = '${month}' AND DAY(date_of_birth) = '${day}';`, { type: QueryTypes.SELECT });
+            console.log(result);
             return result;
         }
         getMembers().then((members)=>{
             var data = [];
             if(members.length != 0){
                 members.forEach(member => {
-                    data.push({"title":"Subject: Happy birthday!","content":`Happy birthday, dear ${member.first_name}!`})
+                    data.push(message.getSimpleMessage(member.first_name))
                 });
             }
             res.status(200).json(data);

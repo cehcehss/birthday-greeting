@@ -3,8 +3,8 @@ function ajaxGetMember(date){
       today: date
     })
   .then(function (response) {
-    var cardsV1 = document.getElementById("cards-v1");
-    cardsV1.innerHTML="";
+    var cardsv1 = document.getElementById("cards-v1");
+    cardsv1.innerHTML="";
     if(response.data.length != 0){
         response.data.forEach(d => {
             var card = document.createElement("DIV");
@@ -14,10 +14,10 @@ function ajaxGetMember(date){
               <p class="card-text">${d.content}</p>
             </div>
           </div>`;
-          cardsV1.appendChild(card);
+          cardsv1.appendChild(card);
         });
     }else{
-      cardsV1.innerHTML='<div class="alert alert-warning my-5" role="alert"> No member was born on this date. </div>';
+      cardsv1.innerHTML='<div class="alert alert-warning my-5" role="alert"> No member was born on this date. </div>';
     }
   })
   .catch(function (error) {
