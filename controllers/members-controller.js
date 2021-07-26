@@ -5,8 +5,9 @@ const { QueryTypes } = require('sequelize');
 module.exports = {
     getMemberByBirthday:(req,res)=>{
         const {today} = req.body;
+        console.log(today);
         var date = moment(today, 'MM/DD');
-    
+        console.log(date);
         var month = date.format('M');
         var day   = date.format('D');
      
