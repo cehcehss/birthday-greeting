@@ -18,6 +18,8 @@ describe('Members APIs',()=>{
                     response.should.have.status(200);
                     response.body.should.be.a('array');
                     response.body.length.should.be.eq(2);
+                    response.body[0].should.have.property('discount');
+                    response.body[0].should.have.property('items');
                 done();
                 });
         });
