@@ -1,28 +1,20 @@
+const moment = require("moment");
 module.exports = {
-    getTailerMadeMessage:function(gender,name){
+    getMessage:function(birth,name){
         var data = {
             "title":"Happy birthday!",
             "content":`Happy birthday, dear ${name}!`
         };
-
-        switch(gender){
-            case "Male":
-                var discountInfo = {
-                    "discount": "20%",
-                    "items":["White Wine","iPhone X"]
-                }
-                data["discount"] = `We offer special discount ${discountInfo.discount} off for the following items:`;
-                data["items"] = `${discountInfo["items"].join(",")}`;
-                break;
-            case "Female":
-                var discountInfo = {
-                    "discount": "50%",
-                    "items":["Cosmetic","LV Handbags"]
-                }
-                data["discount"] = `We offer special discount ${discountInfo.discount} off for the following items:`;
-                data["items"] = `${discountInfo["items"].join(",")}`;
-                break;
+        if(module.exports.isOverCertainAge(birth,49)){
+            data["image"] = true;
         }
         return data
+    },
+    isOverCertainAge:function(birth,checkAge){
+        var today = moment();
+        var birth = moment(birth, 'YYYY-MM-DD');
+        var age = moment.duration(today.diff(birth));
+        var years = age.years();
+        return years > checkAge;
     }
 }

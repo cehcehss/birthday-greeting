@@ -20,7 +20,7 @@ module.exports = {
             var data = [];
             if(members.length != 0){
                 members.forEach(member => {
-                    data.push(message.getTailerMadeMessage(member.gender,member.first_name))
+                    data.push(message.getMessage(member.date_of_birth,member.first_name))
                 });
             }
             res.status(200).json(data);

@@ -1,10 +1,10 @@
 function ajaxGetMember(date){
-    axios.post(`/api/birthday-greeting/v2`, {
+    axios.post(`/api/birthday-greeting/v3`, {
       today: date
     })
   .then(function (response) {
-    var cardsv2 = document.getElementById("cards-v2");
-    cardsv2.innerHTML="";
+    var cardsv3 = document.getElementById("cards-v3");
+    cardsv3.innerHTML="";
     if(response.data.length != 0){
         response.data.forEach(d => {
             var card = document.createElement("DIV");
@@ -12,14 +12,13 @@ function ajaxGetMember(date){
             <div class="card-body">
               <h5 class="card-title">${d.title}</h5>
               <p class="card-text">${d.content}</p>
-              <p class="card-text">${d.discount}</p>
-              <p class="card-text">${d.items}</p>
+              ${(d.image?'<img src="/images/cake.png" alt="" width="400px">':'')}
             </div>
           </div>`;
-          cardsv2.appendChild(card);
+          cardsv3.appendChild(card);
         });
     }else{
-      cardsv2.innerHTML='<div class="alert alert-warning my-5" role="alert"> No member was born on this date. </div>';
+      cardsv3.innerHTML='<div class="alert alert-warning my-5" role="alert"> No member was born on this date. </div>';
     }
   })
   .catch(function (error) {
@@ -27,7 +26,7 @@ function ajaxGetMember(date){
   });
 }
 
-ajaxGetMember("08/08");
+ajaxGetMember("12/22");
 
 document.getElementById("submit-btn").addEventListener('click',function(e){
     var date = document.getElementById("date").value;
