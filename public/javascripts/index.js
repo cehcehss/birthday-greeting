@@ -1,11 +1,10 @@
-function ajaxGetMember(){
+function ajaxGetMember(date){
     axios.post(`/api/birthday-greeting/v1`, {
-      today: '08/08'
+      today: date
     })
   .then(function (response) {
-    // handle success
-    console.log(response.data);
     var cards = document.getElementById("cards");
+    cards.innerHTML="";
     if(response.data.length != 0){
         response.data.forEach(d => {
             var card = document.createElement("DIV");
@@ -22,12 +21,11 @@ function ajaxGetMember(){
     }
   })
   .catch(function (error) {
-    // handle error
     console.log(error);
   });
 }
 
-ajaxGetMember();
+ajaxGetMember("08/08");
 
 document.getElementById("submit-btn").addEventListener('click',function(e){
     var date = document.getElementById("date").value;
