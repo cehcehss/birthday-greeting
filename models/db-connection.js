@@ -1,47 +1,28 @@
 'use strict';
 
-if(process.env.DB == "mysql"){
-  var fs        = require('fs');
-  var path      = require('path');
-  var Sequelize = require('sequelize');
-  var basename  = path.basename(__filename);
-  var config    = {
-    "username": process.env.USERNAME,
-    "password": process.env.PASSWORD,
-    "database": process.env.DATABASE,
-    "host": process.env.HOST,
-    "dialect": process.env.DIALECT,
-    "port":process.env.MYSQL_PORT
-  };
-  var db        = {};
-  var sequelize = new Sequelize(config.database, config.username, config.password, config);
-  
-  fs
-    .readdirSync(__dirname)
-    .filter(file => {
-      return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-    })
-    .forEach(file => {
-      const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
-      db[model.name] = model;
-    });
-  
-  Object.keys(db).forEach(modelName => {
-    if (db[modelName].associate) {
-      db[modelName].associate(db);
-    }
+const DATABASE = process.env.DB;
+var db = {};
+
+if(DATABASE == 'mysql'){
+  const mysql = require('mysql2')
+  const connection = mysql.createConnection({
+    host     :   process.env.HOST,
+    user     :   process.env.USERNAME,
+    password :   process.env.PASSWORD,
+    database :   process.env.DBNAME,
+    port: process.env.MYSQL_PORT
   });
-  
-  db.sequelize = sequelize;
-  db.Sequelize = Sequelize;
+
+  db.connection = connection;
 }
 
-if(process.env.DB == "firestore"){
+if(DATABASE == 'firestore'){
   var admin = require('firebase-admin');
   var serviceAccount = require("../firebase-adminsdk.json");
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
   });
-  db = admin.firestore().collection(process.env.FIRESTORE_COLLECTION); 
+  db = admin.firestore(); 
 }
+
 module.exports = db;

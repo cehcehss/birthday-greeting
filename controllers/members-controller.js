@@ -1,4 +1,4 @@
-const db = require('../models/db-connection');
+const dbQuery = require(`../models/${process.env.DB}-member`);
 const moment = require('moment');
 const message = require('../utils/message');
 module.exports = {
@@ -7,16 +7,13 @@ module.exports = {
         var date = moment(today, 'MM/DD');
         var month = date.format('M');
         var day   = date.format('D');
-        var data = [];
-
-        db
-        .get().then((members)=>{
-            members.forEach((member) => {
-                var memberData = member.data();
-                if(memberData.date_of_birth.includes(`${month}-${day}`)){
-                    data.push(message.getFullNameMessage(memberData.first_name,memberData.last_name));
-                }
-            });
+        dbQuery.queryMembers(month,day).then((members)=>{
+            var data = [];
+            if(members.length != 0){
+                members.forEach(member => {
+                    data.push(message.getFullNameMessage(member.first_name,member.last_name));
+                });
+            }
             res.status(200).json(data);
         }).catch((err) => {
             res.status(500).json({
@@ -32,7 +29,7 @@ module.exports = {
         {first_name:"Sherry",last_name:"Chen",gender:"Female",date_of_birth:"1993-8-8",email:"sherry.lai@linecorp.com"},
         {first_name:"Peter",last_name:"Wang",gender:"Male",date_of_birth:"1950-12-22",email:"peter.wang@linecorp.com"}];
         data.forEach(async function(data){
-            await db.add(data);
+            await dbQuery.addData(data);
         });
     }
 }
