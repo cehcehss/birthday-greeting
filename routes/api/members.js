@@ -4,6 +4,6 @@ const memberController = require('../../controllers/members-controller')
 
 // router.get('/',memberController.getAllMembers)
 
-router.post('/v1',memberController.getMemberByBirthday)
+router.post('/v5',memberController.getMemberByBirthday)
 
 module.exports = router;

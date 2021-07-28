@@ -1,6 +1,9 @@
 const dbQuery = require(`../models/${process.env.DB}-member`);
 const moment = require('moment');
 const message = require('../utils/message');
+var builder = require('xmlbuilder');
+
+
 module.exports = {
     getMemberByBirthday:(req,res)=>{
         const {today} = req.body;
@@ -15,12 +18,17 @@ module.exports = {
                     data.push(message.getSimpleMessage(member.first_name))
                 });
             }
-            res.status(200).json(data);
+            var xml = builder.create('root');
+            for(var i=0; i< data.length; i++){
+                xml.ele('row')
+                .ele('title', data[i]['title']).up()
+                .ele('content', data[i]['content']).end();
+            }
+            var xmldoc = xml.toString({ pretty: true }); 
+            res.set('Content-Type', 'text/xml');
+            res.status(200).send(xmldoc);
         }).catch((err) => {
-            res.status(500).json({
-                msg: 'Something went wrong!',
-                error: err
-            });
+            res.status(500);
         });
     }
 }
