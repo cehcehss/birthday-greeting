@@ -1,7 +1,7 @@
 module.exports = {
     getTailerMadeMessage:function(gender,name){
         var data = {
-            "title":"Happy birthday!",
+            "title":"Subject: Happy birthday!",
             "content":`Happy birthday, dear ${name}!`
         };
 
