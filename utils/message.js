@@ -2,7 +2,7 @@ const moment = require("moment");
 module.exports = {
     getMessage:function(birth,name){
         var data = {
-            "title":"Happy birthday!",
+            "title":"Subject: Happy birthday!",
             "content":`Happy birthday, dear ${name}!`
         };
         if(module.exports.isOverCertainAge(birth,49)){
