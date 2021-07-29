@@ -65,7 +65,7 @@ FIRESTORE_COLLECTION = members
 2. Set up Firestore database
 3. Generate your private key and store it in your project directory
 4. Assign DB = firestore in .env
-5. POST `http://localhost:3000/api/birthday-greeting/v4/init-data`
+5. POST `http://localhost:3000/api/birthday-greeting/v4/init-data` via API testing tool such as Postman
 
 ## Visit http://localhost:3000
 
