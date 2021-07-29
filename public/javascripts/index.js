@@ -12,7 +12,6 @@ function ajaxGetMember(date){
             <div class="card-body">
               <h5 class="card-title">${d.title}</h5>
               <p class="card-text">${d.content}</p>
-              ${(d.image?'<img src="/images/cake.png" alt="" width="400px">':'')}
             </div>
           </div>`;
           cardsv3.appendChild(card);

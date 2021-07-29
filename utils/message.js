@@ -6,7 +6,7 @@ module.exports = {
             "content":`Happy birthday, dear ${name}!`
         };
         if(module.exports.isOverCertainAge(birth,49)){
-            data["image"] = true;
+            data["content"] += `<div><img src="/images/cake.png" alt="" width="400px"></div>`
         }
         return data
     },
