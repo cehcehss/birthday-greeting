@@ -1,12 +1,42 @@
 const moment = require("moment");
 module.exports = {
-    getMessage:function(birth,name){
+    getSimpleMessage:function(name){
+        var data = {
+            "title":"Subject: Happy birthday!",
+            "content":`Happy birthday, dear ${name}!`
+        };
+        return data
+    },
+    getTailerMadeMessage:function(gender,name){
+        var data = {
+            "title":"Subject: Happy birthday!",
+            "content":`Happy birthday, dear ${name}!`
+        };
+        switch(gender){
+            case "Male":
+                var discountInfo = {
+                    "discount": "20%",
+                    "items":["White Wine","iPhone X"]
+                }
+                data["content"] += "<br/>" + `We offer special discount ${discountInfo.discount} off for the following items:` + "<br/>" + `${discountInfo["items"].join(",")}`;
+                break;
+            case "Female":
+                var discountInfo = {
+                    "discount": "50%",
+                    "items":["Cosmetic","LV Handbags"]
+                }
+                data["content"] += "<br/>" + `We offer special discount ${discountInfo.discount} off for the following items:` + "<br/>" + `${discountInfo["items"].join(",")}`;
+                break;
+        }
+        return data
+    },
+    getMessageWithImage:function(birth,name){
         var data = {
             "title":"Subject: Happy birthday!",
             "content":`Happy birthday, dear ${name}!`
         };
         if(module.exports.isOverCertainAge(birth,49)){
-            data["image"] = true;
+            data["content"] += `<div><img src="/images/cake.png" alt="" width="400px"></div>`
         }
         return data
     },
@@ -19,7 +49,7 @@ module.exports = {
     },
     getFullNameMessage:function(first_name,last_name){
         var data = {
-            "title":"Happy birthday!",
+            "title":"Subject: Happy birthday!",
             "content":`Happy birthday, dear ${last_name}, ${first_name}!`
         };
         return data
